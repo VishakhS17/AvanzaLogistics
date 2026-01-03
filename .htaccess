@@ -1,0 +1,5 @@
+
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^www\.avanzalogistics\.in$
+RewriteRule ^(.*)$ "https\:\/\/www\.avanzalogistics\.in\/$1" [R=301,L]
+
