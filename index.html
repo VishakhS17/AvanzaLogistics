@@ -346,20 +346,48 @@
     <section id="Banner2" class="section solutions" aria-labelledby="solutions-title">
       <img class="solutions__bg" src="assets/images/opt/service-2.jpg" alt="" width="866" height="760" loading="lazy" decoding="async">
       <div class="container">
-        <div class="reveal">
-          <p class="kicker">03 — Solutions</p>
-          <h2 class="h2" id="solutions-title">Our solutions</h2>
-          <p class="measure" style="margin-top:20px">With our expertise in logistics and a qualified team for execution, we are equipped to provide the following service suites.</p>
-        </div>
-        <div class="sol-grid">
-          <button type="button" class="sol glass" data-open="3pl"><span class="kicker">01</span><span class="sol__line"></span><span class="sol__name">3PL Services</span><svg class="sol__arrow" width="18" height="18" aria-hidden="true"><use href="#i-arrow"/></svg></button>
-          <button type="button" class="sol glass" data-open="3pl"><span class="kicker">02</span><span class="sol__line"></span><span class="sol__name">On-site logistics</span><svg class="sol__arrow" width="18" height="18" aria-hidden="true"><use href="#i-arrow"/></svg></button>
-          <button type="button" class="sol glass" data-open="reverse-logistics"><span class="kicker">03</span><span class="sol__line"></span><span class="sol__name">Reverse logistics</span><svg class="sol__arrow" width="18" height="18" aria-hidden="true"><use href="#i-arrow"/></svg></button>
-          <button type="button" class="sol glass" data-open="supply-chain"><span class="kicker">04</span><span class="sol__line"></span><span class="sol__name">Supply chain consultancy</span><svg class="sol__arrow" width="18" height="18" aria-hidden="true"><use href="#i-arrow"/></svg></button>
-          <button type="button" class="sol glass" data-open="transportation"><span class="kicker">05</span><span class="sol__line"></span><span class="sol__name">Transportation and delivery</span><svg class="sol__arrow" width="18" height="18" aria-hidden="true"><use href="#i-arrow"/></svg></button>
-          <button type="button" class="sol glass" data-open="manpower"><span class="kicker">06</span><span class="sol__line"></span><span class="sol__name">Skilled and unskilled manpower</span><svg class="sol__arrow" width="18" height="18" aria-hidden="true"><use href="#i-arrow"/></svg></button>
-          <button type="button" class="sol glass" data-open="driver"><span class="kicker">07</span><span class="sol__line"></span><span class="sol__name">Driver services</span><svg class="sol__arrow" width="18" height="18" aria-hidden="true"><use href="#i-arrow"/></svg></button>
-          <button type="button" class="sol glass" data-open="traez"><span class="kicker">08</span><span class="sol__line"></span><span class="sol__name">TRAEZ</span><svg class="sol__arrow" width="18" height="18" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+        <div class="conveyor">
+          <div class="conveyor__copy reveal">
+            <p class="kicker">03 — Solutions</p>
+            <h2 class="h2" id="solutions-title">Our solutions</h2>
+            <p class="measure" style="margin-top:20px">With our expertise in logistics and a qualified team for execution, we are equipped to provide the following service suites.</p>
+            <p class="conveyor__count" aria-hidden="true"><b id="sol-now">01</b><span> / 08</span></p>
+            <p class="conveyor__hint">Scroll or swipe to move</p>
+          </div>
+          <div class="conveyor__stack" id="sol-stack" role="group" aria-label="Solution suites">
+            <div class="sol glass" data-i="0" data-place="0">
+              <button type="button" class="sol__hit" aria-current="true"><span class="kicker">01</span><span class="sol__line"></span><span class="sol__name">3PL Services</span><span class="sol__desc">Fully integrated warehousing, distribution and order fulfillment. A client can choose from a single service through to 3PL.</span></button>
+              <a class="sol__go" href="#service=3pl" data-open="3pl">View service <svg width="16" height="16" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            </div>
+            <div class="sol glass" data-i="1" data-place="next">
+              <button type="button" class="sol__hit" tabindex="-1"><span class="kicker">02</span><span class="sol__line"></span><span class="sol__name">On-site logistics</span><span class="sol__desc" hidden>On-site logistics is part of our 3PL and CFA suite, covering warehousing, distribution and order fulfillment.</span></button>
+              <a class="sol__go" href="#service=3pl" data-open="3pl" tabindex="-1" hidden>View service <svg width="16" height="16" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            </div>
+            <div class="sol glass" data-i="2" data-place="hide">
+              <button type="button" class="sol__hit" tabindex="-1"><span class="kicker">03</span><span class="sol__line"></span><span class="sol__name">Reverse logistics</span><span class="sol__desc" hidden>Industry-specific reverse logistics, including pickup of return material from customers and sites.</span></button>
+              <a class="sol__go" href="#service=reverse-logistics" data-open="reverse-logistics" tabindex="-1" hidden>View service <svg width="16" height="16" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            </div>
+            <div class="sol glass" data-i="3" data-place="hide">
+              <button type="button" class="sol__hit" tabindex="-1"><span class="kicker">04</span><span class="sol__line"></span><span class="sol__name">Supply chain consultancy</span><span class="sol__desc" hidden>A dedicated project team reviews current systems and practices and comes back with a more efficient distribution process.</span></button>
+              <a class="sol__go" href="#service=supply-chain" data-open="supply-chain" tabindex="-1" hidden>View service <svg width="16" height="16" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            </div>
+            <div class="sol glass" data-i="4" data-place="hide">
+              <button type="button" class="sol__hit" tabindex="-1"><span class="kicker">05</span><span class="sol__line"></span><span class="sol__name">Transportation and delivery</span><span class="sol__desc" hidden>Tailor-made transportation to destination points, safely and within a specified turnaround time.</span></button>
+              <a class="sol__go" href="#service=transportation" data-open="transportation" tabindex="-1" hidden>View service <svg width="16" height="16" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            </div>
+            <div class="sol glass" data-i="5" data-place="3">
+              <button type="button" class="sol__hit"><span class="kicker">06</span><span class="sol__line"></span><span class="sol__name">Skilled and unskilled manpower</span><span class="sol__desc" hidden>Skilled and unskilled manpower, with the team picked for the work and availability monitored across South India.</span></button>
+              <a class="sol__go" href="#service=manpower" data-open="manpower" tabindex="-1" hidden>View service <svg width="16" height="16" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            </div>
+            <div class="sol glass" data-i="6" data-place="2">
+              <button type="button" class="sol__hit"><span class="kicker">07</span><span class="sol__line"></span><span class="sol__name">Driver services</span><span class="sol__desc" hidden>Driver onboarding, training, attendance and performance monitoring, from on-call assignments to dedicated drivers.</span></button>
+              <a class="sol__go" href="#service=driver" data-open="driver" tabindex="-1" hidden>View service <svg width="16" height="16" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            </div>
+            <div class="sol glass" data-i="7" data-place="1">
+              <button type="button" class="sol__hit"><span class="kicker">08</span><span class="sol__line"></span><span class="sol__name">TRAEZ</span><span class="sol__desc" hidden>A cloud platform for trip booking, live tracking, driver dispatch and delivery monitoring.</span></button>
+              <a class="sol__go" href="#service=traez" data-open="traez" tabindex="-1" hidden>View service <svg width="16" height="16" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            </div>
+          </div>
         </div>
       </div>
     </section>

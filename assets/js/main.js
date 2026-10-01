@@ -301,6 +301,137 @@
     });
   }
 
+  var stack = document.getElementById("sol-stack");
+  if (stack) {
+    var cards = Array.prototype.slice.call(stack.querySelectorAll(".sol"));
+    var total = cards.length;
+    var active = 0;
+    var nowEl = document.getElementById("sol-now");
+    var held = false;
+    var seen = true;
+    var timer = 0;
+    var dragged = false;
+    var wheelAt = 0;
+
+    function paint() {
+      cards.forEach(function (card, i) {
+        var p = (active - i + total) % total;
+        var place = p === 0 ? "0" : p < 4 ? String(p) : p === total - 1 ? "next" : "hide";
+        var front = place === "0";
+        var shown = front || place === "1" || place === "2" || place === "3";
+        card.setAttribute("data-place", place);
+        var hit = card.querySelector(".sol__hit");
+        var desc = card.querySelector(".sol__desc");
+        var go = card.querySelector(".sol__go");
+        if (hit) {
+          hit.tabIndex = shown ? 0 : -1;
+          if (front) hit.setAttribute("aria-current", "true");
+          else hit.removeAttribute("aria-current");
+        }
+        if (desc) desc.hidden = !front;
+        if (go) {
+          go.hidden = !front;
+          go.tabIndex = front ? 0 : -1;
+        }
+      });
+      if (nowEl) nowEl.textContent = (active + 1 < 10 ? "0" : "") + (active + 1);
+    }
+    function arm() {
+      clearInterval(timer);
+      if (reduce || held || !seen) return;
+      timer = setInterval(function () { go(active + 1); }, 4600);
+    }
+    function go(index) {
+      active = (index + total) % total;
+      paint();
+      arm();
+    }
+    paint();
+    arm();
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (entries) {
+        seen = entries[0].isIntersecting;
+        arm();
+      }, { threshold: 0.4 }).observe(stack);
+    }
+    stack.addEventListener("mouseenter", function () { held = true; arm(); });
+    stack.addEventListener("mouseleave", function () { held = false; arm(); });
+    stack.addEventListener("focusin", function () { held = true; arm(); });
+    stack.addEventListener("focusout", function (e) {
+      if (!stack.contains(e.relatedTarget)) { held = false; arm(); }
+    });
+    stack.addEventListener("keydown", function (e) {
+      if (e.key !== "ArrowDown" && e.key !== "ArrowUp") return;
+      e.preventDefault();
+      go(active + (e.key === "ArrowDown" ? 1 : -1));
+    });
+    stack.addEventListener("wheel", function (e) {
+      if (e.ctrlKey) return;
+      e.preventDefault();
+      var now = Date.now();
+      if (now < wheelAt || Math.abs(e.deltaY) < 4) return;
+      wheelAt = now + 780;
+      go(active + (e.deltaY > 0 ? 1 : -1));
+    }, { passive: false });
+
+    var sy = 0;
+    var sx = 0;
+    var used = false;
+    stack.addEventListener("touchstart", function (e) {
+      sy = e.touches[0].clientY;
+      sx = e.touches[0].clientX;
+      used = false;
+      dragged = false;
+    }, { passive: true });
+    stack.addEventListener("touchmove", function (e) {
+      var dy = e.touches[0].clientY - sy;
+      var dx = e.touches[0].clientX - sx;
+      if (Math.abs(dy) > 8) dragged = true;
+      if (used) { e.preventDefault(); return; }
+      if (Math.abs(dy) < 36 || Math.abs(dy) < Math.abs(dx)) return;
+      e.preventDefault();
+      used = true;
+      go(active + (dy < 0 ? 1 : -1));
+    }, { passive: false });
+
+    var px = 0;
+    var py = 0;
+    var down = false;
+    stack.addEventListener("pointerdown", function (e) {
+      if (e.pointerType === "touch") return;
+      down = true;
+      dragged = false;
+      px = e.clientX;
+      py = e.clientY;
+    });
+    stack.addEventListener("pointermove", function (e) {
+      if (!down) return;
+      if (Math.abs(e.clientX - px) + Math.abs(e.clientY - py) > 8) dragged = true;
+    });
+    stack.addEventListener("pointerup", function (e) {
+      if (e.pointerType === "touch" || !down) return;
+      var dy = e.clientY - py;
+      down = false;
+      if (Math.abs(dy) < 36) return;
+      dragged = true;
+      go(active + (dy < 0 ? 1 : -1));
+    });
+    stack.addEventListener("click", function (e) {
+      if (dragged) {
+        dragged = false;
+        e.preventDefault();
+        e.stopPropagation();
+        return;
+      }
+      if (e.target.closest("[data-open]")) return;
+      var card = e.target.closest(".sol");
+      if (!card) return;
+      var index = Number(card.getAttribute("data-i"));
+      if (index === active) return;
+      go(index);
+    });
+  }
+
   var parallax = document.querySelector(".solutions__bg");
   var solutions = document.getElementById("Banner2");
   if (parallax && solutions && !reduce) {
