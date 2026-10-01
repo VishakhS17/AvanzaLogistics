@@ -201,7 +201,7 @@
       </div>
       <div class="hero__shade" aria-hidden="true"></div>
       <div class="hero__grid">
-        <div class="hero__copy">
+        <div class="hero__copy reveal">
           <p class="kicker">South India logistics</p>
           <h1 class="hero__title" id="hero-title">
             <span class="line"><span>The Best Global</span></span>
@@ -214,7 +214,7 @@
             <a class="btn btn--ghost" href="#about2">About Us</a>
           </div>
         </div>
-        <aside class="status" aria-label="Operating snapshot">
+        <aside class="status reveal" style="--d:220ms" aria-label="Operating snapshot">
           <span class="tick tick--tl" aria-hidden="true"></span>
           <span class="tick tick--tr" aria-hidden="true"></span>
           <span class="tick tick--bl" aria-hidden="true"></span>
@@ -262,7 +262,7 @@
             </div>
             <a class="btn btn--primary" href="#contact2">Contact us for more <svg width="16" height="16" aria-hidden="true"><use href="#i-arrow"/></svg></a>
           </div>
-          <div class="about__visual reveal" style="--d:80ms">
+          <div class="about__visual reveal" style="--d:200ms">
             <div class="frame">
               <img src="assets/images/opt/service-1.jpg" alt="Avanza logistics operations" width="570" height="595" loading="lazy" decoding="async">
               <div class="frame__shade" aria-hidden="true"></div>
@@ -279,9 +279,9 @@
           </div>
         </div>
         <div class="proof">
-          <article><strong>100+</strong><span>Years of management experience</span></article>
-          <article><strong>2,000+</strong><span>People under group companies</span></article>
-          <article><strong>ISO 9001:2015</strong><span>ABS Group</span></article>
+          <article class="reveal"><strong>100+</strong><span>Years of management experience</span></article>
+          <article class="reveal" style="--d:160ms"><strong>2,000+</strong><span>People under group companies</span></article>
+          <article class="reveal" style="--d:320ms"><strong>ISO 9001:2015</strong><span>ABS Group</span></article>
         </div>
       </div>
     </section>
@@ -290,8 +290,10 @@
     <section id="principles" class="section section--alt" aria-labelledby="principles-title">
       <div class="container">
         <div class="rule" aria-hidden="true"><span></span></div>
-        <p class="kicker">02 — Principles</p>
-        <h2 class="h2" id="principles-title">Values, vision and mission</h2>
+        <div class="reveal">
+          <p class="kicker">02 — Principles</p>
+          <h2 class="h2" id="principles-title">Values, vision and mission</h2>
+        </div>
         <div class="principles__grid">
           <article class="principle glass reveal">
             <p class="kicker">01</p>
@@ -299,18 +301,23 @@
             <h3>Values</h3>
             <p>Our organization believes in the best of business ethics and conduct: transparency with clients and stakeholders, corporate social responsibility, and work practices that promote business growth as well as employee welfare.</p>
           </article>
-          <article class="principle glass reveal" style="--d:80ms">
+          <article class="principle glass reveal" style="--d:180ms">
             <p class="kicker">02</p>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 4v2M12 18v2M4 12h2M18 12h2M6.2 6.2l1.4 1.4M16.4 16.4l1.4 1.4M17.8 6.2l-1.4 1.4M7.6 16.4l-1.4 1.4"/></svg>
             <h3>Vision</h3>
             <p>To become a renowned player in the logistics field, with a network all across India, and to be a future-proof company whose strength is its resources, values and technology.</p>
           </article>
-          <article class="principle glass reveal" style="--d:160ms">
+          <article class="principle glass reveal" style="--d:360ms">
             <p class="kicker">03</p>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3"/></svg>
             <h3>Mission</h3>
             <p>To provide tailor-made solutions to our clients, build relationships with all stakeholders that defy time, develop a quality workforce that is future-ready, and create innovative systems that use new-age technology.</p>
           </article>
+        </div>
+        <div class="principles__dots" role="group" aria-label="Choose a principle">
+          <button type="button" class="is-on" aria-label="Values" aria-current="true"></button>
+          <button type="button" aria-label="Vision"></button>
+          <button type="button" aria-label="Mission"></button>
         </div>
       </div>
     </section>
@@ -352,9 +359,9 @@
             <h2 class="h2" id="solutions-title">Our solutions</h2>
             <p class="measure" style="margin-top:20px">With our expertise in logistics and a qualified team for execution, we are equipped to provide the following service suites.</p>
             <p class="conveyor__count" aria-hidden="true"><b id="sol-now">01</b><span> / 08</span></p>
-            <p class="conveyor__hint">Scroll or swipe to move</p>
+            <p class="conveyor__hint">Tap a card to bring it forward</p>
           </div>
-          <div class="conveyor__stack" id="sol-stack" role="group" aria-label="Solution suites">
+          <div class="conveyor__stack reveal" id="sol-stack" style="--d:180ms" role="group" aria-label="Solution suites">
             <div class="sol glass" data-i="0" data-place="0">
               <button type="button" class="sol__hit" aria-current="true"><span class="kicker">01</span><span class="sol__line"></span><span class="sol__name">3PL Services</span><span class="sol__desc">Fully integrated warehousing, distribution and order fulfillment. A client can choose from a single service through to 3PL.</span></button>
               <a class="sol__go" href="#service=3pl" data-open="3pl">View service <svg width="16" height="16" aria-hidden="true"><use href="#i-arrow"/></svg></a>
@@ -395,10 +402,12 @@
     <!-- 6. Service explorer -->
     <section id="textContentSection" class="section section--alt" aria-labelledby="services-title">
       <div class="container">
-        <p class="kicker">04 — Services</p>
-        <h2 class="h2" id="services-title">Service explorer</h2>
+        <div class="reveal">
+          <p class="kicker">04 — Services</p>
+          <h2 class="h2" id="services-title">Service explorer</h2>
+        </div>
         <div class="explorer" style="margin-top:36px">
-          <div class="tabs" role="tablist" aria-orientation="vertical" aria-label="Our services">
+          <div class="tabs reveal" style="--d:160ms" role="tablist" aria-orientation="vertical" aria-label="Our services">
             <button type="button" class="tab" role="tab" id="tab-3pl" data-service="3pl" aria-controls="panel-3pl" aria-selected="true" tabindex="0"><b>01</b><span>3PL &amp; CFA Services</span></button>
             <button type="button" class="tab" role="tab" id="tab-transportation" data-service="transportation" aria-controls="panel-transportation" aria-selected="false" tabindex="-1"><b>02</b><span>Transportation &amp; Delivery</span></button>
             <button type="button" class="tab" role="tab" id="tab-reverse-logistics" data-service="reverse-logistics" aria-controls="panel-reverse-logistics" aria-selected="false" tabindex="-1"><b>03</b><span>Reverse Logistics</span></button>
@@ -408,7 +417,7 @@
             <button type="button" class="tab" role="tab" id="tab-driver" data-service="driver" aria-controls="panel-driver" aria-selected="false" tabindex="-1"><b>07</b><span>Driver Services</span></button>
           </div>
 
-          <div class="panels">
+          <div class="panels reveal" style="--d:280ms">
             <div class="panel" role="tabpanel" id="panel-3pl" aria-labelledby="tab-3pl">
               <p class="kicker">3PL &amp; CFA</p>
               <h3 class="h3">Flexible, industry-ready solutions</h3>
@@ -621,16 +630,18 @@
     <!-- 7. Locations -->
     <section id="contact2" class="section" aria-labelledby="locations-title">
       <div class="container">
-        <p class="kicker">05 — Network</p>
-        <h2 class="h2" id="locations-title">Our locations</h2>
-        <div class="city-switch" role="group" aria-label="Offices">
+        <div class="reveal">
+          <p class="kicker">05 — Network</p>
+          <h2 class="h2" id="locations-title">Our locations</h2>
+        </div>
+        <div class="city-switch reveal" style="--d:140ms" role="group" aria-label="Offices">
           <button type="button" class="city" aria-pressed="true" data-name="Kochi Office" data-address="54/4036, 2nd Floor, Emmy Square, SA Road, Elamkulam, Ernakulam, Kerala 682020" data-phones="+91 484 2384369|tel:+914842384369;+91 93884 83952|tel:+919388483952" data-map="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3930.059403760492!2d76.30899497481954!3d9.963512673814872!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b080d50e227cb3f%3A0x7c0229d4e7b9d3c2!2sEmmy%20Square!5e0!3m2!1sen!2sin!4v1718331114690!5m2!1sen!2sin" data-title="Map showing the Kochi office at Emmy Square">Kochi</button>
           <button type="button" class="city" aria-pressed="false" data-name="Calicut Office" data-address="Flat No: 63/1212, Harminas Building UKS ROAD, Calicut Pin: 673003" data-phones="+91 495 2963080|tel:+914952963080" data-map="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3926.453848897195!2d75.78152827482236!3d11.254856950940507!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba65c470af4ffdf%3A0xa2052c86e1d3609d!2sHarminas%20Building!5e0!3m2!1sen!2sin!4v1718331187194!5m2!1sen!2sin" data-title="Map showing the Calicut office at Harminas Building">Calicut</button>
           <button type="button" class="city" aria-pressed="false" data-name="Trivandrum Office" data-address="Opp. Old deshabhimani building, Manjalikulam Road Thambanoor Trivandrum Pin: 695001" data-phones="+91 471 2321070|tel:+914712321070" data-map="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3946.020624644502!2d76.95076327480362!3d8.483167998786993!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b05bef12d90fbe7%3A0x2d1e8fd93bfa0c4c!2sDeshabhimani%20Manjalikulam%20Office!5e0!3m2!1sen!2sin!4v1718331245644!5m2!1sen!2sin" data-title="Map showing the Trivandrum office">Trivandrum</button>
           <button type="button" class="city" aria-pressed="false" data-name="Coimbatore Office" data-address="Kangayampalayam, Sulur Airforce station, Coimbatore, Tamilnadu. Pin: 641401" data-phones="+91 93884 83952|tel:+919388483952" data-map="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3915.2491432634863!2d77.10462397483722!3d10.899658457676417!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba85c1b5fd4e52d%3A0xc760e9c140d0e04e!2sSulur%20Air%20Force%20Station!5e0!3m2!1sen!2sin!4v1718331296402!5m2!1sen!2sin" data-title="Map showing the Coimbatore office">Coimbatore</button>
         </div>
         <div class="loc__grid">
-          <article class="addr glass" id="addr-card">
+          <article class="addr glass reveal" id="addr-card" style="--d:220ms">
             <h3 id="addr-name">Kochi Office</h3>
             <div id="addr-body">
               <p>54/4036, 2nd Floor, Emmy Square, SA Road, Elamkulam, Ernakulam, Kerala 682020</p>
@@ -643,7 +654,7 @@
               <span>Copy address</span>
             </button>
           </article>
-          <div class="map-frame">
+          <div class="map-frame reveal" style="--d:340ms">
             <span class="tick tick--tl" aria-hidden="true"></span>
             <span class="tick tick--tr" aria-hidden="true"></span>
             <span class="tick tick--bl" aria-hidden="true"></span>
@@ -651,7 +662,7 @@
             <iframe id="location-map" title="Map showing the Kochi office at Emmy Square" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3930.059403760492!2d76.30899497481954!3d9.963512673814872!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b080d50e227cb3f%3A0x7c0229d4e7b9d3c2!2sEmmy%20Square!5e0!3m2!1sen!2sin!4v1718331114690!5m2!1sen!2sin"></iframe>
           </div>
         </div>
-        <aside class="cta-band glass">
+        <aside class="cta-band glass reveal" style="--d:200ms">
           <div>
             <p class="kicker">Contact</p>
             <h2 class="h3">Talk to our team</h2>
@@ -667,11 +678,13 @@
     <!-- 8. Certifications -->
     <section id="certifications" class="section section--alt" aria-labelledby="cert-title">
       <div class="container">
-        <p class="kicker">06 — Trust</p>
-        <h2 class="h2" id="cert-title">Certifications &amp; affiliations</h2>
-        <p class="measure" style="margin-top:16px">Recognized by government-backed institutions for our credibility and impact.</p>
+        <div class="reveal">
+          <p class="kicker">06 — Trust</p>
+          <h2 class="h2" id="cert-title">Certifications &amp; affiliations</h2>
+          <p class="measure" style="margin-top:16px">Recognized by government-backed institutions for our credibility and impact.</p>
+        </div>
         <div class="cert-grid">
-          <article class="cert glass">
+          <article class="cert glass reveal" style="--d:160ms">
             <!-- TODO: replace with certificate logo -->
             <div class="cert__slot">
               <img src="assets/images/certificates/KSM Certificate.png" alt="Kerala Startup Mission" width="240" height="120" hidden loading="lazy" decoding="async">
@@ -679,7 +692,7 @@
             </div>
             <h3 class="h3">Kerala Startup Mission</h3>
           </article>
-          <article class="cert glass">
+          <article class="cert glass reveal" style="--d:320ms">
             <!-- TODO: replace with certificate logo -->
             <div class="cert__slot">
               <img src="assets/images/certificates/Startup-India Certification.png" alt="Startup India" width="240" height="120" hidden loading="lazy" decoding="async">
@@ -687,7 +700,7 @@
             </div>
             <h3 class="h3">Startup India</h3>
           </article>
-          <article class="cert glass">
+          <article class="cert glass reveal" style="--d:480ms">
             <!-- TODO: replace with certificate logo -->
             <div class="cert__slot">
               <img src="assets/images/certificates/msme certification.png" alt="MSME Registered" width="240" height="120" hidden loading="lazy" decoding="async">
@@ -702,7 +715,7 @@
     <!-- 9. Clients -->
     <section id="clients" class="section" aria-labelledby="clients-title">
       <div class="container">
-        <p class="kicker clients-head" id="clients-title">Trusted by</p>
+        <p class="kicker clients-head reveal" id="clients-title">Trusted by</p>
       </div>
       <div class="marquee">
         <div class="marquee__track">
@@ -764,11 +777,11 @@
   <footer id="footer" class="footer">
     <div class="rule" aria-hidden="true"><span></span></div>
     <div class="container footer__grid">
-      <div class="footer__brand">
+      <div class="footer__brand reveal">
         <a class="logo" href="#hero"><img src="assets/images/logo.png" alt="Avanza" width="786" height="808"></a>
         <p>Avanza is a 360-degree service provider in the logistics domain, with expertise in 3PL services, transportation services and manpower management.</p>
       </div>
-      <div>
+      <div class="reveal" style="--d:140ms">
         <h2>What we do</h2>
         <nav aria-label="Services">
           <ul>
@@ -782,7 +795,7 @@
           </ul>
         </nav>
       </div>
-      <div>
+      <div class="reveal" style="--d:280ms">
         <h2>Quick links</h2>
         <nav aria-label="Quick links">
           <ul>
@@ -793,7 +806,7 @@
           </ul>
         </nav>
       </div>
-      <div>
+      <div class="reveal" style="--d:420ms">
         <h2>Contact</h2>
         <ul>
           <li><a href="mailto:info@avanzalogistics.in">info@avanzalogistics.in</a></li>

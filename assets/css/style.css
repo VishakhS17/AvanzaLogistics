@@ -37,7 +37,7 @@
 
 svg[hidden] { display: none !important; }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; overflow-anchor: none; }
 
 html,
 body {
@@ -296,7 +296,8 @@ section { position: relative; z-index: 1; scroll-margin-top: 84px; }
 .hero {
   position: relative;
   z-index: 1;
-  min-height: 100svh;
+  min-height: 100vh;
+  min-height: 100lvh;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -433,7 +434,7 @@ section { position: relative; z-index: 1; scroll-margin-top: 84px; }
   background: rgba(5, 10, 31, 0.55);
   mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
 }
-.ticker__set { display: flex; align-items: center; }
+.ticker__set { display: flex; align-items: center; flex: none; }
 .ticker__track {
   display: flex;
   align-items: center;
@@ -627,6 +628,40 @@ section { position: relative; z-index: 1; scroll-margin-top: 84px; }
   z-index: 1;
 }
 .principle:hover::before { width: 100%; }
+.principles__dots { display: none; justify-content: center; gap: 8px; margin-top: 16px; }
+.principles__dots button {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+}
+.principles__dots button::before {
+  content: "";
+  width: 18px;
+  height: 2px;
+  background: var(--line-strong);
+}
+.principles__dots button.is-on::before { background: var(--accent); }
+@media (max-width: 767px) {
+  .principles__grid {
+    display: flex;
+    gap: 12px;
+    min-width: 0;
+    max-width: 100%;
+    margin-top: 28px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+  }
+  .principles__grid::-webkit-scrollbar { display: none; }
+  .principles__grid > .principle {
+    flex: 0 0 86%;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+  .principles__dots { display: flex; }
+}
 
 .center-block { margin-inline: auto; text-align: left; }
 .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
@@ -685,8 +720,7 @@ section { position: relative; z-index: 1; scroll-margin-top: 84px; }
   position: relative;
   height: 468px;
   margin-top: 28px;
-  touch-action: none;
-  overscroll-behavior: contain;
+  touch-action: pan-y;
 }
 .conveyor .sol {
   position: absolute;
@@ -942,6 +976,9 @@ section { position: relative; z-index: 1; scroll-margin-top: 84px; }
 .addr .btn { margin-top: 18px; }
 .map-frame {
   position: relative;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
   border: 1px solid var(--line);
   border-radius: var(--r-md);
   overflow: hidden;
@@ -950,11 +987,16 @@ section { position: relative; z-index: 1; scroll-margin-top: 84px; }
   aspect-ratio: 4 / 3;
 }
 .map-frame iframe {
+  position: absolute;
+  inset: 0;
+  display: block;
   width: 100%;
   height: 100%;
   border: 0;
+  pointer-events: none;
   filter: invert(0.92) hue-rotate(180deg) saturate(0.7) contrast(0.95);
 }
+.map-frame.is-live iframe { pointer-events: auto; }
 .cta-band {
   margin-top: 48px;
   padding: 32px 24px;
@@ -1058,8 +1100,14 @@ section { position: relative; z-index: 1; scroll-margin-top: 84px; }
 .to-top.is-on { display: inline-flex; }
 .to-top:hover { border-color: var(--accent-line); color: var(--accent); }
 
-.reveal { opacity: 0; transform: translateY(16px); transition: opacity 700ms var(--ease), transform 700ms var(--ease); transition-delay: var(--d, 0ms); }
+.reveal {
+  opacity: 0;
+  transform: translateY(56px);
+  transition: opacity 1400ms var(--ease), transform 1400ms var(--ease);
+  transition-delay: var(--d, 0ms);
+}
 .reveal.is-in { opacity: 1; transform: none; }
+.glass.reveal.is-in:hover { transform: translateY(-3px); }
 
 /* Breakpoints */
 @media (max-width: 575px) {
@@ -1096,7 +1144,7 @@ section { position: relative; z-index: 1; scroll-margin-top: 84px; }
   .tab { white-space: normal; }
   .tab span { white-space: normal; }
   .tab[aria-selected="true"] { box-shadow: inset 2px 0 0 var(--accent); }
-  .loc__grid { grid-template-columns: 0.9fr 1.1fr; align-items: stretch; }
+  .loc__grid { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); align-items: stretch; }
   .map-frame { aspect-ratio: auto; min-height: 420px; height: 100%; }
   .panel__with-dash { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 28px; align-items: start; }
 }
