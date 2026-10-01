@@ -1,5 +1,6 @@
+RewriteEngine On
 
-RewriteEngine on
-RewriteCond %{HTTP_HOST} ^www\.avanzalogistics\.in$
-RewriteRule ^(.*)$ "https\:\/\/www\.avanzalogistics\.in\/$1" [R=301,L]
-
+# One hop to HTTPS and the www host.
+RewriteCond %{HTTPS} !=on [OR]
+RewriteCond %{HTTP_HOST} !^www\.avanzalogistics\.in$ [NC]
+RewriteRule ^ https://www.avanzalogistics.in%{REQUEST_URI} [L,R=301]
