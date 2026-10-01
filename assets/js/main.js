@@ -3,6 +3,7 @@
 
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  var phone = window.matchMedia("(max-width: 991px)").matches;
   var header = document.getElementById("header");
   var nav = document.getElementById("site-nav");
   var toggle = document.getElementById("nav-toggle");
@@ -202,10 +203,12 @@
   function openService(id, scroll) {
     var tab = document.getElementById("tab-" + id);
     if (!tab) return;
+    var box = services ? services.getBoundingClientRect() : null;
+    var onScreen = box && box.top < window.innerHeight && box.bottom > 0;
     tabs.forEach(function (t) {
       var on = t === tab;
       t.setAttribute("aria-selected", on ? "true" : "false");
-      t.tabIndex = on ? 0 : -1;
+      t.tabIndex = on && (!phone || scroll || onScreen) ? 0 : -1;
     });
     panels.forEach(function (p) {
       var on = p.id === "panel-" + id;
@@ -216,8 +219,9 @@
     if (scroll && services) {
       services.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
     }
-    if (window.matchMedia("(max-width: 991px)").matches && tab.parentElement) {
+    if (scroll && window.matchMedia("(max-width: 991px)").matches && tab.parentElement) {
       var scroller = tab.parentElement;
+      scroller.classList.add("is-ready");
       var left = tab.offsetLeft - (scroller.clientWidth - tab.offsetWidth) / 2;
       scroller.scrollTo({ left: Math.max(0, left), behavior: "auto" });
     }
@@ -239,6 +243,11 @@
     armTabs.observe(services);
   } else {
     armSelectedTab();
+  }
+
+  var tabList = document.querySelector(".tabs");
+  if (tabList && phone) {
+    tabList.addEventListener("pointerdown", function () { tabList.classList.add("is-ready"); }, { passive: true });
   }
 
   tabs.forEach(function (tab, index) {
@@ -267,12 +276,12 @@
     openService(trigger.getAttribute("data-open"), true);
   });
 
-  function readHash() {
+  function readHash(scroll) {
     var match = (location.hash || "").match(/^#service=([a-z0-9-]+)$/);
-    if (match) openService(match[1], true);
+    if (match) openService(match[1], scroll);
   }
-  window.addEventListener("popstate", readHash);
-  readHash();
+  window.addEventListener("popstate", function () { readHash(true); });
+  readHash(false);
 
   var cityButtons = Array.prototype.slice.call(document.querySelectorAll(".city"));
   var addrName = document.getElementById("addr-name");
@@ -367,6 +376,7 @@
     var seen = true;
     var timer = 0;
     var dragged = false;
+    var stackReady = !phone;
 
     function paint() {
       cards.forEach(function (card, i) {
@@ -379,14 +389,14 @@
         var desc = card.querySelector(".sol__desc");
         var go = card.querySelector(".sol__go");
         if (hit) {
-          hit.tabIndex = shown ? 0 : -1;
+          hit.tabIndex = stackReady && shown ? 0 : -1;
           if (front) hit.setAttribute("aria-current", "true");
           else hit.removeAttribute("aria-current");
         }
         if (desc) desc.hidden = !front;
         if (go) {
           go.hidden = !front;
-          go.tabIndex = front ? 0 : -1;
+          go.tabIndex = stackReady && front ? 0 : -1;
         }
       });
       if (nowEl) nowEl.textContent = (active + 1 < 10 ? "0" : "") + (active + 1);
@@ -406,6 +416,10 @@
     if ("IntersectionObserver" in window) {
       new IntersectionObserver(function (entries) {
         seen = entries[0].isIntersecting;
+        if (seen && !stackReady) {
+          stackReady = true;
+          paint();
+        }
         arm();
       }, { threshold: 0.4 }).observe(stack);
     }
@@ -499,6 +513,7 @@
       dot.addEventListener("click", function () {
         var card = principleCards[i];
         if (!card || !phonePrinciples.matches) return;
+        principles.classList.add("is-armed");
         var left = card.getBoundingClientRect().left - principles.getBoundingClientRect().left + principles.scrollLeft;
         principles.scrollTo({ left: left, behavior: reduce ? "auto" : "smooth" });
       });
@@ -506,6 +521,15 @@
   }
 
   var mapFrame = document.querySelector(".map-frame");
+  var mapEl = document.getElementById("location-map");
+  if (mapEl && mapEl.getAttribute("data-src") && "IntersectionObserver" in window) {
+    var armMap = new IntersectionObserver(function (entries) {
+      if (!entries[0].isIntersecting) return;
+      if (mapEl.src.indexOf("about:blank") !== -1) mapEl.src = mapEl.getAttribute("data-src");
+      armMap.disconnect();
+    }, { rootMargin: "240px" });
+    armMap.observe(mapFrame || mapEl);
+  }
   if (mapFrame) {
     mapFrame.addEventListener("click", function () { mapFrame.classList.add("is-live"); });
     window.addEventListener("scroll", function () { mapFrame.classList.remove("is-live"); }, { passive: true });
