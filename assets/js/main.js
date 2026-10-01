@@ -223,6 +223,24 @@
     }
   }
 
+  function armSelectedTab() {
+    tabs.forEach(function (tab) {
+      if (tab.getAttribute("aria-selected") === "true") tab.tabIndex = 0;
+    });
+  }
+  if (window.matchMedia("(min-width: 992px)").matches) {
+    armSelectedTab();
+  } else if (services && "IntersectionObserver" in window) {
+    var armTabs = new IntersectionObserver(function (entries) {
+      if (!entries[0].isIntersecting) return;
+      armSelectedTab();
+      armTabs.disconnect();
+    }, { threshold: 0.25 });
+    armTabs.observe(services);
+  } else {
+    armSelectedTab();
+  }
+
   tabs.forEach(function (tab, index) {
     tab.addEventListener("click", function () { openService(tab.getAttribute("data-service"), false); });
     tab.addEventListener("keydown", function (e) {
@@ -475,6 +493,7 @@
         else dot.removeAttribute("aria-current");
       });
     }
+    principles.addEventListener("pointerdown", function () { principles.classList.add("is-armed"); }, { passive: true });
     principles.addEventListener("scroll", paintPrinciples, { passive: true });
     principleDots.forEach(function (dot, i) {
       dot.addEventListener("click", function () {

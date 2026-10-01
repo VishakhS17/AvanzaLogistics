@@ -650,13 +650,15 @@ section { position: relative; z-index: 1; scroll-margin-top: 84px; }
     max-width: 100%;
     margin-top: 28px;
     overflow-x: auto;
-    scroll-snap-type: x mandatory;
     overscroll-behavior-x: contain;
     scrollbar-width: none;
   }
+  .principles__grid.is-armed {
+    scroll-snap-type: x mandatory;
+  }
   .principles__grid::-webkit-scrollbar { display: none; }
-  .principles__grid > .principle {
-    flex: 0 0 86%;
+  .principles__grid > .principle { flex: 0 0 86%; }
+  .principles__grid.is-armed > .principle {
     scroll-snap-align: start;
     scroll-snap-stop: always;
   }
@@ -824,11 +826,10 @@ section { position: relative; z-index: 1; scroll-margin-top: 84px; }
   display: flex;
   gap: 8px;
   overflow-x: auto;
-  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
   padding-bottom: 4px;
 }
 .tab {
-  scroll-snap-align: start;
   flex: 0 0 auto;
   min-height: 48px;
   padding: 12px 14px;
