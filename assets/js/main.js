@@ -81,7 +81,8 @@
     { a: "Innovative", b: "Transportation!", sub: "Empowering leading companies nationwide with superior logistics strategies." },
     { a: "TRAEZ", b: "Delivery Management System", sub: "End-to-end trip and delivery management with real-time tracking, automation and transparency — cutting costs and idle time while maximizing driver efficiency." },
     { a: "Manpower", b: "Services", sub: "End-to-end manpower solutions across South India, with tailored team selection and ongoing monitoring to ensure reliability across industries." },
-    { a: "Driver", b: "Services", sub: "Local and outstation services for goods and passenger segments, on a trip, hourly, daily or monthly basis — with 24/7 support, vehicle stock-movement tracking and reliable assistance." }
+    { a: "Driver", b: "Services", sub: "Local and outstation services for goods and passenger segments, on a trip, hourly, daily or monthly basis — with 24/7 support, vehicle stock-movement tracking and reliable assistance." },
+    { a: "Join", b: "Our Team.", sub: "Warehousing, transportation, drivers and manpower across Kerala, Tamil Nadu and Karnataka.", primaryHref: "careers.html", primaryLabel: "View openings" }
   ];
   var titleEl = document.getElementById("hero-title");
   var subEl = document.getElementById("hero-sub");
@@ -110,6 +111,12 @@
         '<span class="line"><span class="fade">' + data.b + "</span></span>";
     }
     if (subEl) subEl.textContent = data.sub;
+    var primary = document.getElementById("hero-primary");
+    var primaryLabel = primary && primary.querySelector("span");
+    if (primary && primaryLabel) {
+      primary.href = data.primaryHref || "#Banner2";
+      primaryLabel.textContent = data.primaryLabel || "Our Services";
+    }
     var note = document.getElementById("hero-note");
     if (note) note.hidden = i < 2;
     if (live) live.textContent = "Slide " + (i + 1) + " of " + slides.length + ". " + data.a + " " + data.b;
