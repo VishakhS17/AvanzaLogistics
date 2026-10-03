@@ -77,7 +77,7 @@
   }
 
   var slides = [
-    { a: "The Best Global", b: "Logistics Solutions.", sub: "Competitive advantages to some of the largest companies all over the world." },
+    { a: "Best in class", b: "3PL solutions.", sub: "Competitive advantages to some of the largest companies all over the world." },
     { a: "Innovative", b: "Transportation!", sub: "Empowering leading companies nationwide with superior logistics strategies." },
     { a: "TRAEZ", b: "Delivery Management System", sub: "End-to-end trip and delivery management with real-time tracking, automation and transparency — cutting costs and idle time while maximizing driver efficiency." },
     { a: "Manpower", b: "Services", sub: "End-to-end manpower solutions across South India, with tailored team selection and ongoing monitoring to ensure reliability across industries." },
@@ -100,6 +100,8 @@
     img.width = Number(el.getAttribute("data-w")) || 1600;
     img.height = Number(el.getAttribute("data-h")) || 900;
     img.decoding = "async";
+    var focus = el.getAttribute("data-focus");
+    if (focus === "right") img.style.objectPosition = "72% center";
     el.appendChild(img);
   }
 
@@ -117,8 +119,6 @@
       primary.href = data.primaryHref || "#Banner2";
       primaryLabel.textContent = data.primaryLabel || "Our Services";
     }
-    var note = document.getElementById("hero-note");
-    if (note) note.hidden = i < 2;
     if (live) live.textContent = "Slide " + (i + 1) + " of " + slides.length + ". " + data.a + " " + data.b;
     slideEls.forEach(function (el, n) {
       el.classList.toggle("is-active", n === i);
