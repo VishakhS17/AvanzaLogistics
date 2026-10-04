@@ -82,6 +82,7 @@
     { a: "TRAEZ", b: "Delivery Management System", sub: "End-to-end trip and delivery management with real-time tracking, automation and transparency — cutting costs and idle time while maximizing driver efficiency." },
     { a: "Manpower", b: "Services", sub: "End-to-end manpower solutions across South India, with tailored team selection and ongoing monitoring to ensure reliability across industries." },
     { a: "Driver", b: "Services", sub: "Local and outstation services for goods and passenger segments, on a trip, hourly, daily or monthly basis — with 24/7 support, vehicle stock-movement tracking and reliable assistance." },
+    { a: "Avanza", b: "Knowledge Center", sub: "Logistics courses for people working in warehousing, transportation, driving and manpower.", primaryHref: "#knowledge", primaryLabel: "View courses" },
     { a: "Join", b: "Our Team.", sub: "Warehousing, transportation, drivers and manpower across Kerala, Tamil Nadu and Karnataka.", primaryHref: "careers.html", primaryLabel: "View openings" }
   ];
   var titleEl = document.getElementById("hero-title");
@@ -100,13 +101,20 @@
     img.width = Number(el.getAttribute("data-w")) || 1600;
     img.height = Number(el.getAttribute("data-h")) || 900;
     img.decoding = "async";
-    var focus = el.getAttribute("data-focus");
-    if (focus === "right") img.style.objectPosition = "72% center";
     el.appendChild(img);
   }
 
   function paintSlide(i) {
+    var prev = slideIndex;
     slideIndex = i;
+    if (hero && prev !== i) {
+      var forward = true;
+      if (prev === slides.length - 1 && i === 0) forward = true;
+      else if (prev === 0 && i === slides.length - 1) forward = false;
+      else forward = i > prev;
+      hero.classList.toggle("is-forward", forward);
+      hero.classList.toggle("is-back", !forward);
+    }
     var data = slides[i];
     if (titleEl) {
       titleEl.innerHTML = '<span class="line"><span>' + data.a + "</span></span>" +
@@ -121,7 +129,15 @@
     }
     if (live) live.textContent = "Slide " + (i + 1) + " of " + slides.length + ". " + data.a + " " + data.b;
     slideEls.forEach(function (el, n) {
-      el.classList.toggle("is-active", n === i);
+      if (n === i) {
+        el.classList.add("is-active");
+        el.classList.remove("is-leaving");
+      } else if (el.classList.contains("is-active")) {
+        el.classList.remove("is-active");
+        el.classList.add("is-leaving");
+      } else {
+        el.classList.remove("is-leaving");
+      }
       if (n === i || n === (i + 1) % slideEls.length) ensureImage(el);
     });
     segs.forEach(function (seg, n) {
@@ -572,38 +588,41 @@
 
   var callBtn = document.getElementById("call-menu");
   var callSheet = document.getElementById("call-sheet");
+  var callTimer = 0;
   function setCall(open) {
     if (!callBtn || !callSheet) return;
-    callSheet.hidden = !open;
+    window.clearTimeout(callTimer);
     callBtn.setAttribute("aria-expanded", open ? "true" : "false");
     if (open) {
+      callSheet.hidden = false;
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () { callSheet.classList.add("is-open"); });
+      });
       var first = callSheet.querySelector("a");
-      if (first) first.focus();
+      if (first) first.focus({ preventScroll: true });
+    } else {
+      callSheet.classList.remove("is-open");
+      callTimer = window.setTimeout(function () {
+        callSheet.hidden = true;
+      }, reduce ? 0 : 520);
     }
   }
   if (callBtn && callSheet) {
     callBtn.addEventListener("click", function () {
       setCall(callBtn.getAttribute("aria-expanded") !== "true");
     });
-    var callClose = callSheet.querySelector(".call-sheet__close");
-    if (callClose) {
-      callClose.addEventListener("click", function () {
-        setCall(false);
-        callBtn.focus();
-      });
-    }
     callSheet.querySelectorAll("a").forEach(function (link) {
       link.addEventListener("click", function () { setCall(false); });
     });
     document.addEventListener("click", function (e) {
-      if (callSheet.hidden) return;
-      if (e.target.closest("#call-menu") || e.target.closest("#call-sheet")) return;
+      if (callSheet.hidden || !callSheet.classList.contains("is-open")) return;
+      if (e.target.closest("#call-menu") || e.target.closest(".call-card")) return;
       setCall(false);
     });
     document.addEventListener("keydown", function (e) {
       if (e.key === "Escape" && !callSheet.hidden) {
         setCall(false);
-        callBtn.focus();
+        callBtn.focus({ preventScroll: true });
       }
     });
   }
