@@ -260,13 +260,13 @@ body.nav-open .header.is-stuck { backdrop-filter: none; }
   display: flex;
   align-items: center;
   flex: none;
-  font-family: "Montserrat", "Sora", sans-serif;
-  font-weight: 600;
-  font-size: 22px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--accent-text);
   line-height: 1;
+}
+.logo img {
+  width: 46px;
+  height: 46px;
+  display: block;
+  object-fit: cover;
 }
 
 .site-nav { display: none; }
@@ -459,7 +459,6 @@ body.nav-open .header.is-stuck { backdrop-filter: none; }
 .seg.is-active i { background: var(--accent); box-shadow: 0 0 8px rgba(210, 56, 70, 0.8); }
 .seg.is-done i { transform: scaleX(1); }
 .seg.is-active i { animation: fill 4s linear forwards; }
-.hero.is-paused .seg.is-active i { animation-play-state: paused; }
 @keyframes fill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 
 .ticker {
@@ -1137,11 +1136,11 @@ body.nav-open .header.is-stuck { backdrop-filter: none; }
 .footer a { display: inline-flex; min-height: 32px; align-items: center; color: var(--text-2); font-size: 14px; }
 .footer a:hover { color: var(--accent-text); }
 .footer a.logo {
-  color: var(--accent-text);
-  font-size: 22px;
+  color: var(--text-1);
+  font-size: inherit;
   min-height: 0;
 }
-.footer a.logo:hover { color: var(--accent-text); }
+.footer a.logo:hover { color: var(--text-1); }
 .footer__brand p { font-size: 14px; max-width: 36ch; }
 .footer__brand .logo { margin-bottom: 16px; }
 .social-row { display: flex; gap: 8px; margin-top: 16px; }
@@ -1359,6 +1358,7 @@ body.nav-open .header.is-stuck { backdrop-filter: none; }
   .status__row span { white-space: normal; }
 }
 @media (max-width: 380px) {
+  .logo img { width: 38px; height: 38px; }
   .corner-dock { left: 8px; right: 8px; gap: 6px; }
   .corner-dock__phone { padding: 0 10px; font-size: 12px; letter-spacing: 0.02em; }
   .corner-dock__social { gap: 6px; }

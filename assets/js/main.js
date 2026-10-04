@@ -91,7 +91,6 @@
   var segs = Array.prototype.slice.call(document.querySelectorAll(".seg"));
   var slideEls = Array.prototype.slice.call(document.querySelectorAll(".hero__slide"));
   var slideIndex = 0;
-  var heroPaused = false;
 
   function ensureImage(el) {
     if (!el || el.querySelector("img") || !el.getAttribute("data-src")) return;
@@ -160,7 +159,7 @@
   }
 
   function nextSlide() {
-    if (heroPaused || reduce) return;
+    if (reduce) return;
     paintSlide((slideIndex + 1) % slides.length);
   }
 
@@ -171,15 +170,7 @@
       seg.addEventListener("click", function () { paintSlide(n); });
     });
     hero.addEventListener("animationend", function (e) {
-      if (e.animationName === "fill" && !heroPaused && !reduce) nextSlide();
-    });
-    function pause() { heroPaused = true; hero.classList.add("is-paused"); }
-    function resume() { heroPaused = false; hero.classList.remove("is-paused"); }
-    hero.addEventListener("mouseenter", pause);
-    hero.addEventListener("mouseleave", resume);
-    hero.addEventListener("focusin", pause);
-    hero.addEventListener("focusout", function (e) {
-      if (!hero.contains(e.relatedTarget)) resume();
+      if (e.target.closest && e.target.closest(".seg") && e.animationName === "fill" && !reduce) nextSlide();
     });
   }
 
