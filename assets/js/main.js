@@ -569,4 +569,42 @@
       window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
     });
   }
+
+  var callBtn = document.getElementById("call-menu");
+  var callSheet = document.getElementById("call-sheet");
+  function setCall(open) {
+    if (!callBtn || !callSheet) return;
+    callSheet.hidden = !open;
+    callBtn.setAttribute("aria-expanded", open ? "true" : "false");
+    if (open) {
+      var first = callSheet.querySelector("a");
+      if (first) first.focus();
+    }
+  }
+  if (callBtn && callSheet) {
+    callBtn.addEventListener("click", function () {
+      setCall(callBtn.getAttribute("aria-expanded") !== "true");
+    });
+    var callClose = callSheet.querySelector(".call-sheet__close");
+    if (callClose) {
+      callClose.addEventListener("click", function () {
+        setCall(false);
+        callBtn.focus();
+      });
+    }
+    callSheet.querySelectorAll("a").forEach(function (link) {
+      link.addEventListener("click", function () { setCall(false); });
+    });
+    document.addEventListener("click", function (e) {
+      if (callSheet.hidden) return;
+      if (e.target.closest("#call-menu") || e.target.closest("#call-sheet")) return;
+      setCall(false);
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && !callSheet.hidden) {
+        setCall(false);
+        callBtn.focus();
+      }
+    });
+  }
 })();
