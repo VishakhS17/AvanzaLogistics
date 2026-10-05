@@ -103,6 +103,34 @@
     el.appendChild(img);
   }
 
+  function slideTitle(data) {
+    return '<span class="line"><span>' + data.a + "</span></span>" +
+      '<span class="line"><span class="fade">' + data.b + "</span></span>";
+  }
+
+  function lockHeroCopy() {
+    var copy = titleEl && titleEl.parentNode;
+    if (!hero || !copy || !subEl) return;
+    var mobile = window.matchMedia("(max-width: 991px)").matches;
+    if (!mobile) {
+      hero.classList.remove("is-stable");
+      copy.style.minHeight = "";
+      return;
+    }
+    var current = slideIndex;
+    copy.style.minHeight = "";
+    var max = 0;
+    slides.forEach(function (data) {
+      titleEl.innerHTML = slideTitle(data);
+      subEl.textContent = data.sub;
+      max = Math.max(max, copy.offsetHeight);
+    });
+    titleEl.innerHTML = slideTitle(slides[current]);
+    subEl.textContent = slides[current].sub;
+    copy.style.minHeight = Math.ceil(max) + "px";
+    hero.classList.add("is-stable");
+  }
+
   function paintSlide(i) {
     var prev = slideIndex;
     slideIndex = i;
@@ -115,10 +143,7 @@
       hero.classList.toggle("is-back", !forward);
     }
     var data = slides[i];
-    if (titleEl) {
-      titleEl.innerHTML = '<span class="line"><span>' + data.a + "</span></span>" +
-        '<span class="line"><span class="fade">' + data.b + "</span></span>";
-    }
+    if (titleEl) titleEl.innerHTML = slideTitle(data);
     if (subEl) subEl.textContent = data.sub;
     var primary = document.getElementById("hero-primary");
     var primaryLabel = primary && primary.querySelector("span");
@@ -164,8 +189,11 @@
   }
 
   if (hero && titleEl) {
+    lockHeroCopy();
     paintSlide(0);
     if (!reduce) hero.classList.add("is-playing");
+    window.addEventListener("resize", lockHeroCopy);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(lockHeroCopy);
     segs.forEach(function (seg, n) {
       seg.addEventListener("click", function () { paintSlide(n); });
     });
